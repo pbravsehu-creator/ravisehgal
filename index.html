@@ -3,138 +3,158 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Safe Guardian | Ravi Sehgal - Cyber & Code Architect</title>
+    
+    <meta name="theme-color" content="#050505">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <title>Safe Guardian v1.1 | Ravi Sehgal</title>
     
     <link rel="icon" type="image/png" href="favicon.png">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;500;700&family=Space+Grotesk:wght@300;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
     <style>
         :root {
             --neon: #39FF14;
+            --cyan: #00f3ff; /* New Secondary Color */
             --dark: #050505;
-            --panel: #0f1115;
-            --border: rgba(57, 255, 20, 0.2);
-            --text-gray: #a0a0a0;
+            --panel: #0a0c10;
+            --border: rgba(57, 255, 20, 0.15);
+            --text-dim: #8b9bb4;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
             background-color: var(--dark);
             color: #fff;
-            font-family: 'Space Grotesk', sans-serif;
+            font-family: 'Rajdhani', sans-serif; /* More futuristic font */
             overflow-x: hidden;
         }
 
-        /* --- BACKGROUND MATRIX ANIMATION --- */
-        canvas { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.15; }
+        /* --- BACKGROUND --- */
+        canvas { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.12; }
 
         /* --- NAVIGATION --- */
         nav {
             display: flex; justify-content: space-between; align-items: center;
             padding: 20px 8%; position: fixed; width: 100%; top: 0;
-            backdrop-filter: blur(15px); border-bottom: 1px solid var(--border);
-            z-index: 999;
+            backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.05);
+            z-index: 999; background: rgba(5, 5, 5, 0.7);
         }
         .logo { 
-            font-family: 'Fira Code', monospace; font-weight: 700; color: var(--neon); 
-            font-size: 1.4rem; display: flex; align-items: center; gap: 10px; 
+            font-family: 'JetBrains Mono', monospace; font-weight: 700; color: #fff; 
+            font-size: 1.3rem; letter-spacing: -1px; display: flex; align-items: center; gap: 10px;
+        }
+        .logo span { color: var(--neon); }
+        
+        /* 3. Fixed Header Name Styling */
+        .user-tag {
+            font-family: 'JetBrains Mono', monospace; 
+            font-size: 0.85rem; 
+            color: var(--cyan);
+            background: rgba(0, 243, 255, 0.1);
+            padding: 5px 12px;
+            border-radius: 4px;
+            border: 1px solid rgba(0, 243, 255, 0.2);
         }
 
         /* --- HERO SECTION --- */
         .hero {
             min-height: 100vh; display: flex; flex-direction: column;
             justify-content: center; align-items: center; text-align: center;
-            padding: 100px 5%; position: relative;
+            padding: 120px 5% 50px;
         }
         .badge {
             background: rgba(57, 255, 20, 0.05); border: 1px solid var(--neon);
-            padding: 8px 20px; border-radius: 50px; font-size: 0.8rem;
-            color: var(--neon); margin-bottom: 25px; font-family: 'Fira Code', monospace;
-            box-shadow: 0 0 15px rgba(57, 255, 20, 0.2);
+            padding: 6px 16px; border-radius: 2px; font-size: 0.8rem;
+            color: var(--neon); margin-bottom: 25px; font-family: 'JetBrains Mono', monospace;
+            box-shadow: 0 0 20px rgba(57, 255, 20, 0.15); letter-spacing: 1px;
         }
         h1 {
-            font-size: clamp(2.5rem, 6vw, 5rem); line-height: 1.1; margin-bottom: 20px;
-            background: linear-gradient(to right, #fff, #888);
+            font-size: clamp(3rem, 7vw, 5.5rem); line-height: 1; margin-bottom: 20px;
+            font-weight: 700; text-transform: uppercase;
+        }
+        h1 .highlight {
+            background: linear-gradient(90deg, #fff, var(--text-dim));
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
-        .hero p { color: var(--text-gray); max-width: 600px; font-size: 1.1rem; margin-bottom: 40px; }
+        .hero p { color: var(--text-dim); max-width: 600px; font-size: 1.1rem; margin-bottom: 40px; line-height: 1.6; }
 
-        .btn {
-            background: var(--neon); color: #000; padding: 15px 35px;
-            font-weight: 700; text-decoration: none; border-radius: 5px;
-            display: inline-block; transition: 0.3s; font-family: 'Fira Code', monospace;
+        /* 1. Button Fix - No Link, Just Action */
+        .action-btn {
+            background: transparent; color: var(--neon); padding: 15px 40px;
+            font-weight: 700; border: 1px solid var(--neon); cursor: pointer;
+            font-family: 'JetBrains Mono', monospace; font-size: 1rem;
+            transition: 0.3s; position: relative; overflow: hidden;
         }
-        .btn:hover { transform: translateY(-3px); box-shadow: 0 0 25px var(--neon); }
+        .action-btn:hover { background: var(--neon); color: #000; box-shadow: 0 0 30px var(--neon); }
+        .action-btn:active { transform: scale(0.98); }
 
-        /* --- VS CODE SIMULATION (Visual Section) --- */
-        .vscode-section {
-            max-width: 900px; margin: 0 auto 100px; padding: 0 5%;
+        /* Status Output Area (Hidden by default) */
+        #console-output {
+            margin-top: 20px; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem;
+            color: var(--cyan); min-height: 20px;
         }
+
+        /* --- VS CODE SIMULATION --- */
+        .vscode-section { max-width: 850px; margin: 0 auto 100px; padding: 0 5%; }
         .terminal-window {
-            background: #1e1e1e; border-radius: 10px; overflow: hidden;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5); border: 1px solid #333;
+            background: #141414; border-radius: 8px; overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6); border: 1px solid #333;
         }
         .terminal-header {
-            background: #252526; padding: 10px 15px; display: flex; gap: 8px;
-            border-bottom: 1px solid #333;
+            background: #1f1f1f; padding: 12px 15px; display: flex; align-items: center;
+            border-bottom: 1px solid #333; justify-content: space-between;
         }
-        .dot { width: 12px; height: 12px; border-radius: 50%; }
+        .controls { display: flex; gap: 8px; }
+        .dot { width: 10px; height: 10px; border-radius: 50%; }
         .red { background: #ff5f56; } .yellow { background: #ffbd2e; } .green { background: #27c93f; }
         
         .code-area {
-            padding: 20px; font-family: 'Fira Code', monospace; font-size: 0.9rem;
-            color: #d4d4d4; line-height: 1.6;
+            padding: 25px; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem;
+            color: #d4d4d4; line-height: 1.7; text-align: left;
         }
-        .kw { color: #c586c0; } /* Keyword purple */
-        .str { color: #ce9178; } /* String orange */
-        .func { color: #dcdcaa; } /* Function yellow */
-        .comment { color: #6a9955; } /* Comment green */
+        .kw { color: #c586c0; } .str { color: #ce9178; } .func { color: #dcdcaa; } .comment { color: #6a9955; }
 
         /* --- SERVICES GRID --- */
         .services { padding: 50px 8%; }
-        .grid-header { text-align: center; margin-bottom: 60px; }
-        .grid-header h2 { font-size: 2.5rem; margin-bottom: 10px; }
-        
         .grid {
             display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 25px;
         }
         .card {
-            background: var(--panel); border: 1px solid rgba(255,255,255,0.05);
-            padding: 40px; border-radius: 15px; transition: 0.4s;
-            position: relative; overflow: hidden;
+            background: var(--panel); border: 1px solid rgba(255,255,255,0.08);
+            padding: 35px; transition: 0.3s; position: relative;
         }
-        .card::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%;
-            background: var(--neon); transform: scaleY(0); transition: 0.4s;
+        .card:hover { 
+            border-color: var(--cyan); 
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 243, 255, 0.05);
         }
-        .card:hover { transform: translateY(-5px); border-color: rgba(57, 255, 20, 0.3); }
-        .card:hover::before { transform: scaleY(1); }
-        
-        .card i { font-size: 2.5rem; color: var(--neon); margin-bottom: 20px; }
-        .card h3 { font-size: 1.4rem; margin-bottom: 10px; }
-        .card p { color: var(--text-gray); font-size: 0.9rem; line-height: 1.6; }
+        .card i { font-size: 2rem; color: var(--neon); margin-bottom: 20px; }
+        .card h3 { font-size: 1.3rem; margin-bottom: 10px; color: #fff; }
+        .card p { color: var(--text-dim); font-size: 0.9rem; line-height: 1.6; }
 
         /* --- FOOTER --- */
         footer {
             padding: 60px 8%; border-top: 1px solid #222; text-align: center;
-            background: #080808; margin-top: 50px;
+            background: #020202; margin-top: 50px;
         }
-        .beta-pill {
-            display: inline-block; border: 1px solid #333; padding: 5px 15px;
-            border-radius: 50px; font-size: 0.7rem; color: var(--neon); margin-bottom: 15px;
+        .ver-tag {
+            display: inline-block; background: #111; padding: 4px 12px;
+            border-radius: 4px; font-size: 0.7rem; color: #666; margin-bottom: 15px;
+            font-family: 'JetBrains Mono'; border: 1px solid #222;
         }
 
         @media(max-width: 768px) {
-            .hero { padding-top: 150px; }
-            h1 { font-size: 2.5rem; }
-            .vscode-section { display: none; } /* Mobile par code window hide kar sakte hain agar space kam ho */
+            h1 { font-size: 2.8rem; }
+            .hero { padding-top: 140px; }
+            .user-tag { display: none; } /* Mobile pe header clean rakhe */
+            .logo { font-size: 1.1rem; }
         }
     </style>
 </head>
@@ -143,98 +163,82 @@
     <canvas id="matrix"></canvas>
 
     <nav>
-        <div class="logo"><i class="fas fa-shield-halved"></i> SAFE_GUARDIAN</div>
-        <div style="font-family: 'Fira Code'; font-size: 0.8rem; color: #888;">&lt;Ravi_Sehgal /&gt;</div>
+        <div class="logo"><i class="fas fa-shield-alt"></i> <span>SAFE</span>_GUARDIAN</div>
+        <div class="user-tag">root@ravi:~/security</div>
     </nav>
 
     <section class="hero">
-        <div class="badge">CISCO CERTIFIED: JAN 09, 2026</div>
-        <h1>Secure Coding & <br>Network Intelligence</h1>
-        <p>We blend Python Automation, Android Development, and Web Security to build digital fortresses. Not just code, but engineered logic.</p>
-        <a href="mailto:ravi@safeguardian.com" class="btn">INITIALIZE_PROJECT</a>
+        <div class="badge">CISCO VERIFIED EXPERT</div>
+        <h1><span class="highlight">SECURE LOGIC</span> <br> ARCHITECTURE</h1>
+        <p>Advanced Python Automation, Android Hardening, and Network Defense. We don't just write code; we engineer digital safety.</p>
+        
+        <button class="action-btn" onclick="runSystemCheck()">INITIALIZE_SYSTEM_SCAN</button>
+        <div id="console-output"></div>
     </section>
 
     <section class="vscode-section">
         <div class="terminal-window">
             <div class="terminal-header">
-                <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
-                <span style="font-size: 0.8rem; color: #888; margin-left: 10px;">main.py - Visual Studio Code</span>
+                <div class="controls">
+                    <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
+                </div>
+                <span style="font-size: 0.8rem; color: #666; font-family: 'JetBrains Mono';">security_patch.py</span>
+                <div></div>
             </div>
             <div class="code-area">
+                <span class="kw">import</span> sys<br>
                 <span class="kw">class</span> SafeGuardian:<br>
                 &nbsp;&nbsp;<span class="kw">def</span> <span class="func">__init__</span>(self):<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;self.security = <span class="str">"Zero-Trust"</span><br>
-                &nbsp;&nbsp;&nbsp;&nbsp;self.network = <span class="str">"Cisco Verified"</span><br><br>
-                &nbsp;&nbsp;<span class="kw">def</span> <span class="func">deploy_solution</span>(self):<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;<span class="comment"># Deploying secure Android & Web Logic</span><br>
-                &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">return</span> <span class="str">"System Secured. No Vulnerabilities Found."</span>
+                &nbsp;&nbsp;&nbsp;&nbsp;self.status = <span class="str">"Active"</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;self.policy = <span class="str">"Never Trust, Always Verify"</span><br><br>
+                &nbsp;&nbsp;<span class="kw">def</span> <span class="func">execute_defense</span>(self):<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="comment"># Scanning network for vulnerabilities...</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">return</span> <span class="str">"All Systems Secure."</span>
             </div>
         </div>
     </section>
 
     <section class="services">
-        <div class="grid-header">
-            <h2>Our Capabilities</h2>
-            <p style="color: var(--text-gray);">Full-Stack Development with a Security-First Mindset</p>
-        </div>
-        
         <div class="grid">
             <div class="card">
-                <i class="fa-solid fa-lock"></i>
-                <h3>Web Security</h3>
-                <p>Securing HTML/JS/PHP stacks against SQL Injection and XSS attacks using OWASP standards.</p>
+                <i class="fa-solid fa-bug-slash"></i>
+                <h3>Vulnerability Fixes</h3>
+                <p>Identifying weak points in software architecture and patching them before deployment.</p>
             </div>
-
             <div class="card">
                 <i class="fa-brands fa-python"></i>
-                <h3>Python Logic</h3>
-                <p>Advanced scripting for automation, data analysis, and backend security tools.</p>
+                <h3>Python Automation</h3>
+                <p>Custom scripts for data analysis, security auditing, and backend logic optimization.</p>
             </div>
-
             <div class="card">
                 <i class="fa-brands fa-android"></i>
-                <h3>Android Dev</h3>
-                <p>Building native Android apps with clean Kotlin/Java code and encrypted local storage.</p>
+                <h3>Android Security</h3>
+                <p>Development of tamper-proof Android applications with encrypted local storage.</p>
             </div>
-
             <div class="card">
-                <i class="fa-solid fa-network-wired"></i>
-                <h3>Networking</h3>
-                <p>Cisco-level infrastructure design, routing protocols, and firewall configurations.</p>
-            </div>
-
-            <div class="card">
-                <i class="fa-solid fa-code"></i>
-                <h3>Clean Coding</h3>
-                <p>Written in VS Code environment with strict syntax standards and efficiency.</p>
-            </div>
-
-            <div class="card">
-                <i class="fa-solid fa-user-secret"></i>
-                <h3>Cyber Defense</h3>
-                <p>Penetration testing and vulnerability assessment to verify system integrity.</p>
+                <i class="fa-solid fa-server"></i>
+                <h3>Server Hardening</h3>
+                <p>Cisco-standard firewall configuration and zero-trust network implementation.</p>
             </div>
         </div>
     </section>
 
     <footer>
-        <div class="beta-pill">BETA VERSION APP 1.0</div>
-        <h3>RAVI SEHGAL</h3>
-        <p style="font-size: 0.9rem; color: #666; margin-top: 10px;">"Never Trust, Always Verify"</p>
-        <p style="font-size: 0.7rem; color: #444; margin-top: 30px;">© 2026 Safe Guardian Startup. All Rights Reserved.</p>
+        <div class="ver-tag">VERSION 1.1 (STABLE)</div>
+        <h3 style="letter-spacing: 2px;">RAVI SEHGAL</h3>
+        <p style="font-size: 0.9rem; color: #555; margin-top: 10px; font-style: italic;">"Never Trust, Always Verify"</p>
+        <p style="font-size: 0.7rem; color: #333; margin-top: 30px;">© 2026 Safe Guardian. All Rights Reserved.</p>
     </footer>
 
     <script>
+        // Matrix Effect
         const canvas = document.getElementById('matrix');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
-        const katakana = '01';
-        const nums = '01';
-        const alphabet = katakana + nums;
-
-        const fontSize = 16;
+        const chars = '01';
+        const fontSize = 14;
         const columns = canvas.width/fontSize;
         const drops = [];
 
@@ -243,22 +247,44 @@
         function draw() {
             ctx.fillStyle = 'rgba(5, 5, 5, 0.05)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = '#39FF14'; // Neon Green Text
+            ctx.fillStyle = '#39FF14'; 
             ctx.font = fontSize + 'px monospace';
 
             for(let i = 0; i < drops.length; i++) {
-                const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+                const text = chars.charAt(Math.floor(Math.random() * chars.length));
                 ctx.fillText(text, i*fontSize, drops[i]*fontSize);
                 if(drops[i]*fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
                 drops[i]++;
             }
         }
-        setInterval(draw, 30);
+        setInterval(draw, 33);
         
         window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         });
+
+        // 2. Button Simulation Script
+        function runSystemCheck() {
+            const btn = document.querySelector('.action-btn');
+            const output = document.getElementById('console-output');
+            
+            btn.innerText = "SCANNING...";
+            btn.style.opacity = "0.7";
+            output.innerText = "> Establishing secure handshake...";
+            
+            setTimeout(() => {
+                output.innerText = "> Verifying network integrity...";
+            }, 800);
+
+            setTimeout(() => {
+                output.innerText = "> ACCESS GRANTED. Welcome, Ravi.";
+                output.style.color = "#39FF14";
+                btn.innerText = "SYSTEM SECURE";
+                btn.style.borderColor = "#39FF14";
+                btn.style.color = "#39FF14";
+            }, 2000);
+        }
     </script>
 </body>
 </html>
