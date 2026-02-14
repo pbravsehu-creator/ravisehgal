@@ -4,221 +4,272 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
-    <title>Safe Guardian | Code Architect</title>
-    <meta name="description" content="Cyber Architect & DevSecOps Specialist.">
-    <meta property="og:title" content="🛡️ Safe Guardian | Code Architect">
-    <meta property="og:description" content="Never Trust, Always Verify. Protocol Active.">
+    <title>Safe Guardian | Cute & Secure</title>
+    <meta name="description" content="Cybersecurity & Web Expert. Never Trust, Always Verify.">
+    <meta property="og:title" content="🛡️ Safe Guardian | Secure Web Solutions">
+    <meta property="og:description" content="Building hack-proof, high-performance digital experiences.">
     <meta property="og:image" content="https://img.icons8.com/nolan/512/code.png"> 
 
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2339FF14'><path d='M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z'/></svg>">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300f3ff'><path d='M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z'/></svg>">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
     <style>
         :root {
-            --neon: #39FF14;
-            --cyber: #00f3ff;
-            --bg: #000000;
-            --panel: rgba(10, 10, 10, 0.9);
-            --border: rgba(57, 255, 20, 0.2);
-            --alert: #ff003c;
+            --cute-cyan: #00f3ff;
+            --cute-pink: #ff61a6;
+            --cute-purple: #bc13fe;
+            --bg: #0a0a12;
+            --panel: rgba(20, 20, 30, 0.85);
+            --border: rgba(0, 243, 255, 0.3);
+            --text-main: #f0f0f5;
+            --text-mute: #a0a0b5;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         html { scroll-behavior: smooth; }
         
         body { 
-            background: var(--bg); color: #fff; font-family: 'Rajdhani', sans-serif; 
+            background: var(--bg); color: var(--text-main); font-family: 'Nunito', sans-serif; 
             overflow: hidden; height: 100vh; width: 100vw;
         }
 
-        /* MATRIX BG */
-        canvas { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.15; pointer-events: none; }
+        /* MATRIX BG - SOFT BUBBLES/BINARY */
+        canvas { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.1; pointer-events: none; }
 
         .wrapper { display: flex; flex-direction: column; height: 100vh; }
 
         /* HEADER */
         header {
             padding: 15px 20px; display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 1px solid var(--border); background: var(--panel);
+            border-bottom: 1px solid var(--border); background: rgba(10, 10, 18, 0.9);
             position: sticky; top: 0; z-index: 999; backdrop-filter: blur(10px);
         }
-        .logo { font-family: 'JetBrains Mono'; color: var(--neon); font-size: 0.9rem; font-weight: 700; }
+        .logo { font-family: 'JetBrains Mono'; color: var(--cute-cyan); font-size: 1rem; font-weight: 700; display: flex; align-items: center; gap: 8px; }
 
-        /* MAIN SCROLL CONTAINER - FIX FOR HEADER OVERLAP */
+        /* SPLASH SCREEN */
+        #splash {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--bg); z-index: 10000; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; transition: opacity 0.5s ease;
+        }
+        .loader-bar { width: 180px; height: 4px; background: #222; margin-top: 20px; border-radius: 10px; overflow: hidden; }
+        .loader-p { width: 0%; height: 100%; background: linear-gradient(90deg, var(--cute-cyan), var(--cute-pink)); box-shadow: 0 0 10px var(--cute-pink); }
+
+        /* MAIN SCROLL CONTAINER */
         main { 
             flex: 1; overflow-y: auto; padding: 20px; padding-bottom: 100px; 
-            scroll-padding-top: 80px; /* IMPORTANT: Keeps sections below header */
+            scroll-padding-top: 80px; 
         }
 
-        /* SECTIONS - PACKED TIGHTER */
-        section { padding: 10px 0 30px; border-bottom: 1px dashed #222; }
-        .sec-title { font-size: 1.2rem; color: var(--cyber); margin-bottom: 15px; font-family: 'JetBrains Mono'; text-transform: uppercase; }
+        section { padding: 20px 0 40px; border-bottom: 1px dashed rgba(255,255,255,0.1); }
+        .sec-title { font-size: 1.4rem; color: var(--cute-purple); margin-bottom: 20px; font-weight: 800; display: flex; align-items: center; gap: 10px; }
 
         /* HERO & TERMINAL */
-        .hero h1 { font-size: 2.2rem; text-transform: uppercase; line-height: 1; margin-bottom: 5px; }
-        .hero span { color: var(--neon); }
-        .hero p { font-family: 'JetBrains Mono'; font-size: 0.75rem; color: #555; margin-bottom: 15px; }
+        .hero h1 { font-size: 2.2rem; line-height: 1.2; margin-bottom: 5px; font-weight: 800; }
+        .hero span { background: linear-gradient(90deg, var(--cute-cyan), var(--cute-pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero p { font-family: 'JetBrains Mono'; font-size: 0.8rem; color: var(--text-mute); margin-bottom: 20px; }
 
         .console {
-            background: #050505; border: 1px solid var(--cyber);
-            border-radius: 8px; font-family: 'JetBrains Mono'; overflow: hidden; margin-bottom: 15px;
+            background: rgba(0,0,0,0.6); border: 2px solid var(--cute-cyan);
+            border-radius: 12px; font-family: 'JetBrains Mono'; overflow: hidden; margin-bottom: 20px;
+            box-shadow: 0 5px 20px rgba(0, 243, 255, 0.1);
         }
-        .c-head { background: #111; padding: 6px 12px; font-size: 0.6rem; color: #444; display: flex; justify-content: space-between; }
-        #logs { padding: 12px; font-size: 0.7rem; color: var(--neon); height: 100px; overflow-y: auto; line-height: 1.4; }
+        .c-head { background: rgba(0, 243, 255, 0.1); padding: 8px 15px; font-size: 0.7rem; color: var(--cute-cyan); display: flex; justify-content: space-between; font-weight: bold; }
+        #logs { padding: 15px; font-size: 0.75rem; color: var(--cute-pink); height: 110px; overflow-y: auto; line-height: 1.5; }
 
         .btn-scan {
-            width: 100%; background: var(--neon); color: #000; border: none;
-            padding: 14px; border-radius: 8px; font-weight: 700; font-family: 'JetBrains Mono';
-            cursor: pointer; box-shadow: 0 0 15px rgba(57, 255, 20, 0.2); transition: 0.3s;
+            width: 100%; background: linear-gradient(45deg, var(--cute-cyan), var(--cute-purple)); color: #fff; border: none;
+            padding: 16px; border-radius: 12px; font-weight: 800; font-family: 'Nunito', sans-serif; font-size: 1rem;
+            cursor: pointer; box-shadow: 0 5px 15px rgba(188, 19, 254, 0.3); transition: 0.3s;
         }
         .btn-scan:active { transform: scale(0.95); }
 
-        /* CARDS */
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .card { background: var(--panel); border: 1px solid var(--border); padding: 12px; border-radius: 10px; }
-        .card i { color: var(--neon); font-size: 1.1rem; margin-bottom: 8px; }
-        .card h3 { font-size: 0.85rem; margin-bottom: 4px; }
-        .card p { font-size: 0.65rem; color: #666; font-family: 'JetBrains Mono'; }
+        /* ABOUT BOX */
+        .about-box {
+            background: var(--panel); border: 1px solid var(--border); padding: 20px; 
+            border-radius: 16px; font-size: 0.9rem; line-height: 1.6; color: var(--text-main);
+            box-shadow: inset 0 0 20px rgba(0, 243, 255, 0.05);
+        }
+        .about-box strong { color: var(--cute-cyan); }
 
-        .project-box { background: #050505; border: 1px solid #333; padding: 12px; border-radius: 8px; margin-bottom: 10px; }
-        .project-box h4 { color: #fff; font-size: 0.9rem; margin-bottom: 5px; }
-        .project-box p { color: #888; font-size: 0.7rem; font-family: 'JetBrains Mono'; }
+        /* SERVICES GRID */
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .card { 
+            background: var(--panel); border: 1px solid rgba(255,255,255,0.05); 
+            padding: 15px; border-radius: 16px; text-align: left; transition: 0.3s; 
+        }
+        .card:hover { border-color: var(--cute-pink); background: rgba(255, 97, 166, 0.05); }
+        .card i { color: var(--cute-cyan); font-size: 1.4rem; margin-bottom: 10px; }
+        .card h3 { font-size: 0.9rem; margin-bottom: 6px; font-weight: 800; }
+        .card p { font-size: 0.7rem; color: var(--text-mute); }
 
-        /* VAULT GAME */
-        .game-box { background: rgba(255, 0, 60, 0.05); border: 1px solid var(--alert); padding: 15px; border-radius: 8px; text-align: center; }
-        .fw-bar-container { width: 100%; height: 15px; border: 1px solid var(--alert); margin: 15px 0; border-radius: 5px; overflow: hidden; }
-        #fw-bar { width: 100%; height: 100%; background: var(--alert); transition: width 0.1s; }
-        .btn-hack { background: var(--alert); color: #fff; border: none; padding: 12px 20px; font-family: 'JetBrains Mono'; font-weight: bold; border-radius: 5px; width: 100%; cursor: pointer; }
-        .btn-hack:active { transform: scale(0.9); }
+        /* HAPPY GAME VAULT */
+        .game-box { 
+            background: rgba(0, 243, 255, 0.05); border: 2px dashed var(--cute-cyan); 
+            padding: 20px; border-radius: 16px; text-align: center; 
+        }
+        .fw-bar-container { width: 100%; height: 20px; background: #222; margin: 15px 0; border-radius: 10px; overflow: hidden; }
+        #happy-bar { width: 0%; height: 100%; background: linear-gradient(90deg, var(--cute-cyan), var(--cute-pink)); transition: width 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
+        .btn-happy { 
+            background: var(--cute-pink); color: #fff; border: none; padding: 14px 20px; 
+            font-weight: 800; border-radius: 10px; width: 100%; cursor: pointer; font-size: 1rem;
+            box-shadow: 0 5px 15px rgba(255, 97, 166, 0.3);
+        }
+        .btn-happy:active { transform: scale(0.9); }
         
-        #unlocked-vault { display: none; background: rgba(57, 255, 20, 0.1); border: 1px solid var(--neon); padding: 15px; border-radius: 8px; text-align: center; }
-        .contact-link { color: var(--cyber); font-family: 'JetBrains Mono'; font-size: 0.8rem; display: block; margin: 10px 0; text-decoration: none; border: 1px solid var(--cyber); padding: 10px; border-radius: 5px;}
+        #unlocked-vault { display: none; background: rgba(0, 243, 255, 0.1); border: 1px solid var(--cute-cyan); padding: 20px; border-radius: 16px; text-align: center; }
+        .contact-link { 
+            background: var(--panel); color: var(--cute-cyan); font-family: 'JetBrains Mono'; font-size: 0.85rem; 
+            display: flex; align-items: center; justify-content: center; gap: 10px; margin: 10px 0; 
+            text-decoration: none; border: 1px solid var(--cute-cyan); padding: 12px; border-radius: 10px;
+            transition: 0.3s;
+        }
+        .contact-link:hover { background: var(--cute-cyan); color: #000; }
 
         /* FOOTER NAV */
         .f-nav {
-            position: fixed; bottom: 0; width: 100%; background: #080808;
-            display: flex; justify-content: space-around; padding: 15px;
-            border-top: 1px solid var(--border); z-index: 999;
+            position: fixed; bottom: 0; width: 100%; background: rgba(10, 10, 18, 0.95);
+            display: flex; justify-content: space-around; padding: 15px 10px;
+            border-top: 1px solid rgba(255,255,255,0.1); z-index: 999; backdrop-filter: blur(10px);
         }
-        .f-nav a { color: #333; transition: 0.3s; text-decoration: none; display: flex; flex-direction: column; align-items: center; }
-        .f-nav a i { font-size: 1.2rem; }
-        .f-nav a.active { color: var(--neon); text-shadow: 0 0 8px var(--neon); transform: scale(1.1); }
-        .f-nav span { font-size: 0.5rem; font-family: 'JetBrains Mono'; margin-top: 4px; display: none; }
-        .f-nav a.active span { display: block; color: var(--cyber); }
+        .f-nav a { color: var(--text-mute); transition: 0.3s; text-decoration: none; display: flex; flex-direction: column; align-items: center; }
+        .f-nav a i { font-size: 1.3rem; margin-bottom: 4px; }
+        .f-nav a.active { color: var(--cute-pink); transform: translateY(-3px); }
+        .f-nav span { font-size: 0.6rem; font-family: 'JetBrains Mono'; font-weight: 700; }
 
     </style>
 </head>
 <body>
 
+    <div id="splash">
+        <div class="logo"><i class="fas fa-heart" style="color: var(--cute-pink);"></i> LOADING_SMILES...</div>
+        <div class="loader-bar"><div class="loader-p"></div></div>
+    </div>
+
     <canvas id="matrix"></canvas>
 
     <div class="wrapper">
         <header>
-            <div class="logo"><i class="fas fa-code"></i> SAFE_GUARDIAN</div>
-            <i class="fas fa-satellite-dish" style="color: var(--neon); font-size: 0.8rem; animation: pulse 2s infinite;"></i>
+            <div class="logo"><i class="fas fa-shield-cat"></i> SAFE_GUARDIAN</div>
+            <i class="fas fa-sparkles" style="color: var(--cute-cyan); font-size: 1rem; animation: pulse 2s infinite;"></i>
         </header>
 
         <main id="main-scroll">
             
             <section id="home" class="hero">
-                <h1>SECURE <span>LOGIC</span></h1>
-                <p>> Cyber Architect & Defensive Logic Expert</p>
+                <h1>Secure Logic <span>& Happy Code</span></h1>
+                <p>> Making the web a safer place (❁´◡`❁)</p>
                 
                 <div class="console">
-                    <div class="c-head"><span>SYSTEM_TERMINAL</span> <span>ROOT</span></div>
-                    <div id="logs">> System on standby.<br>> Waiting for diagnostic scan...</div>
+                    <div class="c-head"><span>CUTE_TERMINAL</span> <span>ONLINE</span></div>
+                    <div id="logs">> System resting.<br>> Press button to send cyber-hugs...</div>
                 </div>
-                <button class="btn-scan" onclick="startScan()">EXECUTE_SYSTEM_SCAN</button>
+                <button class="btn-scan" onclick="startScan()"><i class="fas fa-magic"></i> RUN_CUTE_SCAN()</button>
             </section>
 
-            <section id="skills">
-                <div class="sec-title">> CORE_MODULES</div>
+            <section id="about">
+                <div class="sec-title"><i class="fas fa-user-astronaut"></i> ARCHITECT_INFO</div>
+                <div class="about-box">
+                    <strong>Ravi Sehgal</strong> is a cybersecurity and web expert dedicated to building secure, high-performance websites for businesses across India. With a focus on creating hack-proof solutions, he specializes in secure e-commerce design and advanced fraud protection. 
+                    <br><br>
+                    Ravi provides professional solutions to safeguard your business from online threats, ensuring your digital presence is built on a foundation of robust security. His work is guided by the principle of <strong>"Never Trust, Always Verify,"</strong> promising peace of mind and protection for your data and operations. 
+                    <br><br>
+                    Collaborate with Ravi Sehgal to secure your path to digital success.
+                </div>
+            </section>
+
+            <section id="services">
+                <div class="sec-title"><i class="fas fa-layer-group"></i> CORE_SERVICES</div>
                 <div class="grid">
-                    <div class="card"><i class="fas fa-shield-alt"></i><h3>Hardening</h3><p>Defensive APK logic.</p></div>
-                    <div class="card"><i class="fab fa-python"></i><h3>Automation</h3><p>Python security scripts.</p></div>
-                    <div class="card"><i class="fas fa-network-wired"></i><h3>Intelligence</h3><p>Zero-trust networks.</p></div>
-                    <div class="card"><i class="fas fa-bug-slash"></i><h3>Auditing</h3><p>Vulnerability patching.</p></div>
-                </div>
-            </section>
-
-            <section id="projects">
-                <div class="sec-title">> DEPLOYED_LOGIC</div>
-                <div class="project-box">
-                    <h4>Python Net-Scanner</h4>
-                    <p>Automated script for finding open ports and weak SSL certificates.</p>
-                </div>
-                <div class="project-box">
-                    <h4>APK Shield V2</h4>
-                    <p>Android reverse-engineering defense tool with encrypted resources.</p>
+                    <div class="card"><i class="fas fa-cloud"></i><h3>Cloud Computing</h3><p>Secure, scalable cloud infrastructure tailored for high-performance and data safety.</p></div>
+                    <div class="card"><i class="fas fa-laptop-code"></i><h3>Web Softwares</h3><p>Custom web applications built with robust architecture and secure backends.</p></div>
+                    <div class="card"><i class="fas fa-mobile-screen-button"></i><h3>Mobile Software</h3><p>High-security mobile apps for Android & iOS, protecting user data on the go.</p></div>
+                    <div class="card"><i class="fas fa-stethoscope"></i><h3>Problem Diagnosis</h3><p>Deep vulnerability scanning, debugging, and performance optimization.</p></div>
+                    <div class="card"><i class="fas fa-palette"></i><h3>Web Design</h3><p>User-friendly, modern, and conversion-optimized UI/UX experiences.</p></div>
+                    <div class="card"><i class="fas fa-code-branch"></i><h3>Web Developing</h3><p>End-to-end full-stack development focusing on seamless and secure functionality.</p></div>
+                    <div class="card"><i class="fas fa-network-wired"></i><h3>Networking</h3><p>Zero-trust network setup, firewall configurations, and traffic monitoring.</p></div>
                 </div>
             </section>
 
             <section id="vault" style="border-bottom: none;">
-                <div class="sec-title">> SECURE_HANDSHAKE</div>
+                <div class="sec-title"><i class="fas fa-gift"></i> SECURE_VAULT</div>
                 
                 <div id="game-ui" class="game-box">
-                    <h4 style="color: var(--alert); font-family: 'JetBrains Mono'; margin-bottom: 5px;">FIREWALL ACTIVE</h4>
-                    <p style="font-size: 0.7rem; color: #888; font-family: 'JetBrains Mono';">Tap rapidly to inject payload and breach the firewall.</p>
-                    <div class="fw-bar-container"><div id="fw-bar"></div></div>
-                    <p style="font-size: 0.8rem; font-family: 'JetBrains Mono'; margin-bottom: 10px;">INTEGRITY: <span id="fw-text">100%</span></p>
-                    <button class="btn-hack" ontouchstart="hackAttempt()" onmousedown="hackAttempt()">INJECT_PAYLOAD()</button>
+                    <h3 style="color: var(--cute-cyan); margin-bottom: 8px;">Power Up the Core! ⚡</h3>
+                    <p style="font-size: 0.8rem; color: var(--text-mute);">Tap rapidly to generate positive energy and unlock the secure vault!</p>
+                    <div class="fw-bar-container"><div id="happy-bar"></div></div>
+                    <p style="font-size: 0.9rem; font-weight: bold; margin-bottom: 15px;">HAPPINESS: <span id="happy-text">0%</span></p>
+                    <button class="btn-happy" ontouchstart="chargeVault(event)" onmousedown="chargeVault(event)">💖 SEND_GOOD_VIBES()</button>
                 </div>
 
                 <div id="unlocked-vault">
-                    <h4 style="color: var(--neon); margin-bottom: 10px;"><i class="fas fa-unlock-alt"></i> VAULT UNLOCKED</h4>
-                    <p style="font-size: 0.7rem; color: #aaa; margin-bottom: 15px;">Secure communication lines are now open.</p>
+                    <h3 style="color: var(--cute-pink); margin-bottom: 10px;">🎉 VAULT UNLOCKED! 🎉</h3>
+                    <p style="font-size: 0.8rem; color: var(--text-mute); margin-bottom: 15px;">Thank you for the good vibes. Secure channels are open.</p>
                     <a href="mailto:ravi@example.com" class="contact-link"><i class="fas fa-envelope"></i> INIT_EMAIL_PROTOCOL</a>
                     <a href="https://github.com/" target="_blank" class="contact-link"><i class="fab fa-github"></i> ACCESS_GITHUB_REPO</a>
                 </div>
 
-                <p style="text-align: center; font-size: 0.55rem; color: #444; margin-top: 40px; letter-spacing: 3px;">
-                    NEVER TRUST ALWAYS VERIFY
+                <p style="text-align: center; font-size: 0.6rem; color: #555; margin-top: 40px; letter-spacing: 2px; font-weight: bold;">
+                    RAVI SEHGAL | NEVER TRUST ALWAYS VERIFY
                 </p>
             </section>
         </main>
 
         <nav class="f-nav">
             <a href="#home" class="nav-item active"><i class="fas fa-home"></i><span>HOME</span></a>
-            <a href="#skills" class="nav-item"><i class="fas fa-shield-halved"></i><span>SKILLS</span></a>
-            <a href="#projects" class="nav-item"><i class="fas fa-layer-group"></i><span>WORK</span></a>
-            <a href="#vault" class="nav-item"><i class="fas fa-gamepad"></i><span>VAULT</span></a>
+            <a href="#about" class="nav-item"><i class="fas fa-user-astronaut"></i><span>ABOUT</span></a>
+            <a href="#services" class="nav-item"><i class="fas fa-layer-group"></i><span>SERVICES</span></a>
+            <a href="#vault" class="nav-item"><i class="fas fa-gift"></i><span>VAULT</span></a>
         </nav>
     </div>
 
     <script>
-        // Matrix Background
+        // Splash Loading
+        window.addEventListener('load', hideSplash);
+        setTimeout(hideSplash, 3500); 
+        function hideSplash() {
+            const sp = document.getElementById('splash');
+            if(sp.style.display !== "none") {
+                gsap.to(".loader-p", { width: "100%", duration: 1.2 });
+                setTimeout(() => { gsap.to("#splash", { opacity: 0, duration: 0.5, onComplete: () => sp.style.display = "none" }); }, 1400);
+            }
+        }
+
+        // Cute Code Background (0, 1, and <3)
         const canvas = document.getElementById('matrix');
         const ctx = canvas.getContext('2d');
         function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
         window.onresize = resize; resize();
-        const drops = Array(Math.floor(canvas.width/14)).fill(1);
+        const drops = Array(Math.floor(canvas.width/18)).fill(1);
+        const chars = ['0', '1', '{', '}', '<3'];
         setInterval(() => {
-            ctx.fillStyle = 'rgba(0,0,0,0.05)';
+            ctx.fillStyle = 'rgba(10, 10, 18, 0.1)';
             ctx.fillRect(0,0,canvas.width,canvas.height);
-            ctx.fillStyle = '#39FF14';
-            ctx.font = '14px monospace';
+            ctx.fillStyle = '#00f3ff';
+            ctx.font = '14px JetBrains Mono';
             drops.forEach((y, i) => {
-                ctx.fillText(Math.random() > 0.5 ? "0" : "1", i*14, y*14);
-                if(y*14 > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                const text = chars[Math.floor(Math.random() * chars.length)];
+                ctx.fillText(text, i*18, y*18);
+                if(y*18 > canvas.height && Math.random() > 0.975) drops[i] = 0;
                 drops[i]++;
             });
-        }, 50);
+        }, 60);
 
-        // Scan Sequence
+        // Cute Terminal Scan
         let isScanning = false;
         function startScan() {
             if(isScanning) return;
             isScanning = true;
             const logs = document.getElementById('logs');
             const lines = [
-                "> Bypassing local security...",
-                "> Validating user signature...",
-                "> Signature: RAVI SEHGAL",
-                "> Status: VERIFIED.",
-                "> All modules running at 100% capacity."
+                "> Analyzing digital vibes... 🔍",
+                "> Blocking bad energy and bugs... 🚫🐛",
+                "> Injecting secure code & happiness... 💖",
+                "> Validating protocol: Never Trust Always Verify",
+                "> Status: 100% SECURE & CUTE 🚀"
             ];
             logs.innerHTML = "";
             let i = 0;
@@ -228,49 +279,47 @@
                     logs.scrollTop = logs.scrollHeight;
                     i++;
                 } else { clearInterval(timer); isScanning = false; }
-            }, 600);
+            }, 700);
         }
 
-        // Vault Hack Mini-Game
-        let fwIntegrity = 100;
-        let hackInterval;
+        // Happy Vault Game
+        let happyLevel = 0;
+        let drainInterval;
         
-        function hackAttempt() {
-            if(fwIntegrity <= 0) return;
-            fwIntegrity -= 12; // Reduces integrity per tap
-            if(fwIntegrity < 0) fwIntegrity = 0;
+        function chargeVault(e) {
+            e.preventDefault(); // Prevents double firing on mobile
+            if(happyLevel >= 100) return;
+            happyLevel += 15; // Tap power
+            if(happyLevel >= 100) happyLevel = 100;
             updateGameUI();
 
-            if(fwIntegrity === 0) {
+            if(happyLevel === 100) {
                 document.getElementById('game-ui').style.display = 'none';
                 const vault = document.getElementById('unlocked-vault');
                 vault.style.display = 'block';
-                gsap.from(vault, {scale: 0.8, opacity: 0, duration: 0.5, ease: "back.out(1.7)"});
-                clearInterval(hackInterval);
+                gsap.from(vault, {scale: 0.5, rotation: 10, opacity: 0, duration: 0.6, ease: "back.out(1.5)"});
+                clearInterval(drainInterval);
             }
         }
 
-        // Auto-heal firewall (makes game challenging)
-        function startHealing() {
-            hackInterval = setInterval(() => {
-                if(fwIntegrity > 0 && fwIntegrity < 100) {
-                    fwIntegrity += 2;
-                    if(fwIntegrity > 100) fwIntegrity = 100;
+        // Energy drains if they stop tapping!
+        function startDrain() {
+            drainInterval = setInterval(() => {
+                if(happyLevel > 0 && happyLevel < 100) {
+                    happyLevel -= 3;
+                    if(happyLevel < 0) happyLevel = 0;
                     updateGameUI();
                 }
-            }, 200);
+            }, 300);
         }
-        startHealing();
+        startDrain();
 
         function updateGameUI() {
-            document.getElementById('fw-bar').style.width = fwIntegrity + "%";
-            document.getElementById('fw-text').innerText = Math.floor(fwIntegrity) + "%";
-            if(fwIntegrity < 50) document.getElementById('fw-bar').style.background = "#ffbd2e";
-            if(fwIntegrity < 20) document.getElementById('fw-bar').style.background = "#39FF14";
-            else if(fwIntegrity >= 50) document.getElementById('fw-bar').style.background = "#ff003c";
+            document.getElementById('happy-bar').style.width = happyLevel + "%";
+            document.getElementById('happy-text').innerText = Math.floor(happyLevel) + "%";
         }
 
-        // Scroll Spy (Highlight Nav)
+        // Auto-Highlight Nav on Scroll
         const mainScroll = document.getElementById('main-scroll');
         const sections = document.querySelectorAll('section');
         const navItems = document.querySelectorAll('.nav-item');
@@ -278,7 +327,7 @@
         mainScroll.addEventListener('scroll', () => {
             let current = '';
             sections.forEach(sec => {
-                if (mainScroll.scrollTop >= (sec.offsetTop - 100)) {
+                if (mainScroll.scrollTop >= (sec.offsetTop - 120)) {
                     current = sec.getAttribute('id');
                 }
             });
@@ -288,7 +337,7 @@
             });
         });
 
-        // Smooth Nav Click
+        // Smooth Scroll Click
         navItems.forEach(item => {
             item.addEventListener('click', function(e) {
                 e.preventDefault();
